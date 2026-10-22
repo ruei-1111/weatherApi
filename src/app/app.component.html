@@ -1,0 +1,174 @@
+
+<!-- 網站首頁 -->
+<div class="weather-page">
+
+  <!-- 最上方固定導覽列 -->
+
+<header class="site-header">
+
+  <!-- 左側：選單按鈕與 Logo -->
+  <div class="header-left">
+
+    <!-- 點擊展開側邊選單 -->
+    <details class="menu-container">
+      <summary class="menu-button" aria-label="開啟選單">
+        <span></span>
+        <span></span>
+        <span></span>
+      </summary>
+
+      <!-- 展開的側邊選單 -->
+      <nav class="side-menu" aria-label="側邊選單">
+        <a href="/">首頁</a>
+        <a href="#current-weather">目前天氣</a>
+        <a href="#hourly-forecast">逐時預報</a>
+        <a href="#daily-forecast">本週氣溫</a>
+      </nav>
+    </details>
+
+    <!-- 點擊 Logo 回到首頁 -->
+    <a href="/" class="header-brand" aria-label="回到首頁">
+      <img src="/logoWeather.png" alt="Weather 天氣首頁 Logo"
+      class="brand-icon"/>
+      <span class="brand-name">Weather</span>
+    </a>
+
+  </div>
+
+
+  <!-- 右側：搜尋與導覽 -->
+  <div class="header-right">
+
+    <!-- 地區搜尋 -->
+    <form class="header-search" role="search">
+
+      <input
+        type="search"
+        class="search-input"
+        placeholder="搜尋城市或地區"
+        aria-label="搜尋城市或地區"
+      />
+
+      <button
+        type="submit"
+        class="search-button"
+        aria-label="搜尋"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          class="search-icon"
+        >
+          <circle cx="10.5" cy="10.5" r="6.5"></circle>
+          <path d="M15.5 15.5 L21 21"></path>
+        </svg>
+      </button>
+
+    </form>
+
+    <!-- 天氣頁面導覽 -->
+    <nav class="header-nav" aria-label="天氣導覽">
+      <a href="#current-weather">當日氣溫</a>
+      <a href="#daily-forecast">本週氣溫</a>
+    </nav>
+
+  </div>
+
+</header>
+
+  <!-- 首頁主要天氣畫面 -->
+  <main class="main-content">
+
+    <!-- 主要天氣背景與目前天氣 -->
+    <section
+      id="current-weather"
+      class="weather-hero"
+      aria-label="目前天氣"
+    >
+      <!-- 主要天氣資訊 -->
+      <div class="current-weather-info">
+
+        <p class="weather-location">{{location}}</p>
+        <h1 class="current-temperature">{{temperature}}°C</h1>
+        <p class="weather-description">{{description}}</p>
+
+      </div>
+    </section>
+
+    <div class="weather-content">
+     <!-- 今日天氣摘要 -->
+    <section
+      class="weather-card today-summary"
+      aria-label="今日天氣摘要"
+    >
+      <h2>今日天氣</h2>
+      <p class="summary-temperature">最高溫 {{formatNumber(maxTemperature)}} °C</p>
+      <p class="summary-temperature">最低溫 {{formatNumber(minTemperature)}} °C</p>
+    </section>
+
+
+    <!-- 天氣詳細資訊 -->
+    <section
+      class="weather-card weather-details"
+      aria-label="天氣詳細資訊"
+    >
+      <h2>天氣資訊</h2>
+
+      <div class="weather-details-list">
+
+        <article class="weather-detail-item">
+          <h3>降雨機率</h3>
+          <p>{{ formatNumber(rainProbability)}}  %</p>
+        </article>
+
+        <article class="weather-detail-item">
+          <h3>風速</h3>
+          <p>{{ formatNumber(windSpeed)}} km/h</p>
+        </article>
+
+        <article class="weather-detail-item">
+          <h3>相對濕度</h3>
+          <p>{{ formatNumber(humidity)}} %</p>
+        </article>
+
+        <article class="weather-detail-item">
+          <h3>體感溫度</h3>
+          <p>{{ formatNumber(feelsLike)}} °C</p>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- 逐時天氣預報 -->
+    <section
+      id="hourly-forecast"
+      class="weather-card hourly-forecast"
+      aria-label="逐時天氣預報"
+    >
+      <h2>逐時預報</h2>
+      <!-- 之後放置每個時段的天氣資訊 -->
+    </section>
+
+
+    <!-- 未來幾天天氣預報 -->
+    <section
+      id="daily-forecast"
+      class="weather-card daily-forecast"
+      aria-label="未來天氣預報"
+    >
+      <h2>未來天氣</h2>
+      <!-- 之後放置每日天氣資訊 -->
+    </section>
+
+  </div>
+  <!-- weather-content 在這裡結束 -->
+
+  </main>
+
+  <!-- 網頁頁尾 -->
+  <footer class="site-footer">
+    <p>Weather Forecast</p>
+  </footer>
+
+</div>

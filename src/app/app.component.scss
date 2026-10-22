@@ -1,0 +1,425 @@
+
+//最外層整個首頁
+.weather-page {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  font-family: Arial, "Noto Sans TC", sans-serif;
+  color: #ffffff;
+  // 預設整個頁面的底色
+  background-color: #101216;
+}
+// 首頁天空背景區域
+.weather-hero {
+  position: relative;
+
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 100px 5% 48px;
+
+  background-image: url('/desktopWallpaper.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 首頁左上透明框的 目前天氣資訊：半透明懸浮卡片 */
+.current-weather-info {
+  position: relative;
+  z-index: 1;
+
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 24px 28px;
+
+  background: rgba(15, 25, 45, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+/* 滑鼠移到卡片上時，稍微浮起 */
+.current-weather-info:hover {
+  transform: translateY(-5px);
+
+  background: rgba(15, 25, 45, 0.62);
+
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+}
+
+/* 卡片內的文字間距 */
+.current-weather-info .weather-location {
+  margin: 0 0 16px;
+}
+
+.current-weather-info .current-temperature {
+  margin: 0 0 16px;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.current-weather-info .weather-description {
+  margin: 0;
+}
+
+//標題列
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  width: 100%;
+  min-height: 64px;
+  box-sizing: border-box;
+  padding: 10px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  // 半透明霧面背景
+  background-color: rgba(30, 45, 65, 0.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+// 左側區域
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+// Logo
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+// 右側區域
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+// 搜尋框
+.header-search {
+  display: flex;
+  align-items: center;
+
+  width: 240px;
+  height: 40px;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.15);
+
+  overflow: hidden;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 12px;
+
+  border: none;
+  outline: none;
+  background: transparent;
+
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.search-icon {
+  width: 22px;
+  height: 22px;
+
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+// 右側導覽連結
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header-nav a {
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 15px;
+}
+// 選單按鈕
+.menu-container {
+  position: relative;
+}
+
+.menu-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+
+  width: 42px;
+  height: 42px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  border-radius: 50%;
+  background: rgba(20, 40, 65, 0.65);
+  cursor: pointer;
+  list-style: none;
+}
+
+.menu-button::-webkit-details-marker {
+  display: none;
+}
+
+.menu-button span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: #ffffff;
+}
+// 側邊選單
+.side-menu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  width: 280px;
+  min-height: calc(100vh - 64px);
+  box-sizing: border-box;
+  padding: 20px;
+
+  background: rgba(30, 30, 30, 0.96);
+  backdrop-filter: blur(16px);
+
+  box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.side-menu a {
+  display: block;
+  padding: 14px 12px;
+
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.side-menu a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+//今日天氣、逐時預報、未來預報卡片
+.weather-card {
+  background: rgba(43, 47, 55, 0.92);
+  color: #ffffff;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+  // 平滑的懸浮動畫
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+// 滑鼠移過去時
+.weather-card:hover {
+  transform: translateY(-6px);
+
+  background: rgba(51, 57, 67, 0.98);
+  border-color: rgba(130, 180, 255, 0.35);
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+// 使用鍵盤操作時也能看見焦點
+.weather-card:focus-within {
+  border-color: rgba(130, 180, 255, 0.7);
+}
+// 天空背景下方的內容區域
+.weather-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+
+  padding: 40px 5%;
+  background-color: #101216;
+  box-sizing: border-box;
+}
+
+// 今日天氣摘要橫跨兩欄
+.today-summary {
+  grid-column: 1 / -1;
+}
+
+// 天氣詳細資訊內部排列
+.weather-details-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* 主要內容區域 */
+.main-content {
+  width: 100%;
+}
+
+/* 今日最高溫、最低溫文字 */
+.summary-temperature {
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* 天氣詳細資訊卡片 */
+.weather-details {
+  min-width: 0;
+}
+
+/* 每一個天氣資訊項目 */
+.weather-detail-item {
+  min-width: 0;
+  padding: 16px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.weather-detail-item h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(18, 239, 235, 0.75);
+  text-shadow: 0 0 6px rgba(130, 180, 255, 0.4);
+}
+
+.weather-detail-item p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* 逐時預報與未來天氣 */
+.hourly-forecast,
+.daily-forecast {
+  min-width: 0;
+}
+
+/* 網頁頁尾 */
+.site-footer {
+  padding: 24px 5%;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.65);
+  background-color: #101216;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* 手機版設定 */
+@media (max-width: 768px) {
+  .weather-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 5%;
+  }
+  .weather-details-list {
+    grid-template-columns: 1fr;
+  }
+  .site-header {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .header-left {
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .header-right {
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .header-search {
+    width: 150px;
+  }
+
+  .header-nav {
+    display: none;
+  }
+}
