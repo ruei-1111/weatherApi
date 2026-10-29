@@ -10,24 +10,29 @@
   <div class="header-left">
 
     <!-- 點擊展開側邊選單 -->
-    <details class="menu-container">
-      <summary class="menu-button" aria-label="開啟選單">
+    <details class="menu-container" (toggle)="onMenuToggle($event)">
+      <!-- Logo 音效 -->
+      <summary class="menu-button" aria-label="開啟選單" >
         <span></span>
         <span></span>
         <span></span>
+
       </summary>
 
       <!-- 展開的側邊選單 -->
       <nav class="side-menu" aria-label="側邊選單">
+
         <a href="/">首頁</a>
         <a href="#current-weather">目前天氣</a>
         <a href="#hourly-forecast">逐時預報</a>
         <a href="#daily-forecast">本週氣溫</a>
       </nav>
+
     </details>
 
     <!-- 點擊 Logo 回到首頁 -->
-    <a href="/" class="header-brand" aria-label="回到首頁">
+    <a href="/" class="header-brand" aria-label="回到首頁"
+    >
       <img src="/logoWeather.png" alt="Weather 天氣首頁 Logo"
       class="brand-icon"/>
       <span class="brand-name">Weather</span>
@@ -40,13 +45,17 @@
   <div class="header-right">
 
     <!-- 地區搜尋 -->
-    <form class="header-search" role="search">
+    <form class="header-search"
+      role="search"
+      (ngSubmit)="searchLocation()">
 
       <input
         type="search"
         class="search-input"
-        placeholder="搜尋城市或地區"
-        aria-label="搜尋城市或地區"
+        placeholder="搜尋城市"
+        aria-label="搜尋城市"
+        name="searchCity"
+       [(ngModel)]="searchCity"
       />
 
       <button
@@ -66,14 +75,59 @@
 
     </form>
 
-    <!-- 天氣頁面導覽 -->
-    <nav class="header-nav" aria-label="天氣導覽">
-      <a href="#current-weather">當日氣溫</a>
-      <a href="#daily-forecast">本週氣溫</a>
-    </nav>
+<div class="location-selector">
+  <!-- 縣市下拉選單 -->
+  <div class="custom-dropdown">
+    <button
+      type="button"
+      class="dropdown-button"
+      (click)="toggleDropdown('city')"
+      [attr.aria-expanded]="isCityDropdownOpen"
+    >
+      <span>{{ selectedCity || '選擇縣市' }}</span>
+      <span class="dropdown-arrow" [class.is-open]="isCityDropdownOpen"></span>
+    </button>
+
+<div class="dropdown-menu" *ngIf="isCityDropdownOpen">
+  <button
+    type="button"
+    class="dropdown-option"
+    *ngFor="let cityName of cityOptions"
+    (click)="selectCity(cityName)"
+  >
+    {{ cityName }}
+  </button>
+</div>
 
   </div>
 
+  <!-- 地區下拉選單 -->
+
+  <div class="custom-dropdown">
+    <button
+      type="button"
+      class="dropdown-button"
+      (click)="toggleDropdown('district')"
+      [attr.aria-expanded]="isDistrictDropdownOpen"
+    >
+      <span>{{ selectedDistrict || '選擇地區' }}</span>
+      <span class="dropdown-arrow" [class.is-open]="isDistrictDropdownOpen"></span>
+    </button>
+
+<div class="dropdown-menu" *ngIf="isDistrictDropdownOpen">
+  <button
+    type="button"
+    class="dropdown-option"
+    *ngFor="let districtName of districtOptions"
+    (click)="selectDistrict(districtName)"
+  >
+    {{ districtName }}
+  </button>
+  </div>
+
+  </div>
+  </div>
+ </div>
 </header>
 
   <!-- 首頁主要天氣畫面 -->
@@ -86,9 +140,9 @@
       aria-label="目前天氣"
     >
       <!-- 主要天氣資訊 -->
-      <div class="current-weather-info">
+      <div class="current-weather-info" (click)="playSound('/xp-error.mp3', 1)">
 
-        <p class="weather-location">{{location}}</p>
+        <p class="weather-location">{{city}}.{{location}}</p>
         <h1 class="current-temperature">{{temperature}}°C</h1>
         <p class="weather-description">{{description}}</p>
 
@@ -102,8 +156,8 @@
       aria-label="今日天氣摘要"
     >
       <h2>今日天氣</h2>
-      <p class="summary-temperature">最高溫 {{formatNumber(maxTemperature)}} °C</p>
-      <p class="summary-temperature">最低溫 {{formatNumber(minTemperature)}} °C</p>
+      <p class="summary-temperature">最高溫 {{maxTemperature}} °C</p>
+      <p class="summary-temperature">最低溫 {{minTemperature}} °C</p>
     </section>
 
 
@@ -118,22 +172,22 @@
 
         <article class="weather-detail-item">
           <h3>降雨機率</h3>
-          <p>{{ formatNumber(rainProbability)}}  %</p>
+          <p>{{ rainProbability}}  %</p>
         </article>
 
         <article class="weather-detail-item">
           <h3>風速</h3>
-          <p>{{ formatNumber(windSpeed)}} km/h</p>
+          <p>{{ windSpeed}} km/h</p>
         </article>
 
         <article class="weather-detail-item">
           <h3>相對濕度</h3>
-          <p>{{ formatNumber(humidity)}} %</p>
+          <p>{{ humidity}} %</p>
         </article>
 
         <article class="weather-detail-item">
           <h3>體感溫度</h3>
-          <p>{{ formatNumber(feelsLike)}} °C</p>
+          <p>{{minfeelsLike}}~{{maxfeelsLike}} °C</p>
         </article>
 
       </div>
